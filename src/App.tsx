@@ -1,14 +1,10 @@
 import React from "react";
 
 import "./assets/styles/global.css";
+import Landing from "./pages/Landing";
 
 function App() {
-  return (
-    <div className="App">
-      <h1>Hello, world!</h1>
-      <p>Programmed to work and not to feel.</p>
-    </div>
-  );
+  return <Landing />;
 }
 
 export default App;
