@@ -1,45 +1,66 @@
-import React from "react";
+import React from 'react';
 
-import whatsappIcon from "../../assets/images/icons/whatsapp.svg";
+import { useHistory } from 'react-router-dom';
 
-import "./styles.css";
+import whatsappIcon from '../../assets/images/icons/whatsapp.svg';
 
-function TeacherItem() {
+import './styles.css';
+import api from '../../services/api';
+
+export interface ITeacher {
+  id: number;
+  subject: string;
+  cost: number;
+  name: string;
+  avatar: string;
+  whatsapp: string;
+  bio: string;
+}
+
+interface ITeacherItemProps {
+  teacher: ITeacher;
+}
+
+const TeacherItem: React.FC<ITeacherItemProps> = ({ teacher }) => {
+  const history = useHistory();
+
+  function createNewConnection() {
+    api
+      .post('connections', {
+        user_id: teacher.id,
+      })
+      .then(() => {
+        history.push('/');
+      });
+  }
   return (
-    <article className="teacher-item">
+    <article className='teacher-item'>
       <header>
-        <img
-          src="https://pbs.twimg.com/profile_images/1274714904965062657/MluSy3uC_400x400.jpg"
-          alt="avatar"
-        />
+        <img src={teacher.avatar} alt={teacher.name} />
         <div>
-          <strong>Pão com ovo prensado</strong>
-          <span>Química</span>
+          <strong>{teacher.name}</strong>
+          <span>{teacher.subject}</span>
         </div>
       </header>
 
-      <p>
-        Eu seria um pão com ovo comum.
-        <br />
-        Incrivelmente, Duda decidiu que pensar um pão com ovo parecia uma boa
-        ideia.
-        <br />
-        Então cá estou eu, queimado por fora, cru por dentro, totalmente
-        intragável.
-      </p>
+      <p>{teacher.bio}</p>
 
       <footer>
         <p>
           Preço/hora
-          <strong>Grátis</strong>
+          <strong>R$ {teacher.cost}</strong>
         </p>
-        <button type="button">
-          <img src={whatsappIcon} alt="Whatsapp" />
+        <a
+          target='blank'
+          onClick={createNewConnection}
+          href={`https://wa.me/55${teacher.whatsapp}`}
+        >
+          <img src={whatsappIcon} alt='Whatsapp' />
           Entrar em contato
-        </button>
+        </a>
       </footer>
     </article>
   );
-}
+};
 
 export default TeacherItem;
