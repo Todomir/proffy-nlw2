@@ -54,6 +54,7 @@
 
 .buttons-container a img {
   width: 4rem;
+  margin-right: 1.2rem;
 }
 
 .buttons-container a:first-child {
@@ -96,8 +97,8 @@
     grid-template-rows: 350px 1fr;
     grid-template-columns: 2fr 1fr 1fr;
     grid-template-areas:
-      "logo hero hero"
-      "buttons buttons total";
+      'logo hero hero'
+      'buttons buttons total';
   }
 
   .logo-container {
